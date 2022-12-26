@@ -1,0 +1,1 @@
+deb [signed-by=/etc/apt/trusted.gpg.d/KEY.gpg] https://cutefishos-ubuntu.github.io/packages ./
