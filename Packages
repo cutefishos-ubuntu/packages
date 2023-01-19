@@ -14,6 +14,27 @@ Priority: optional
 Homepage: https://github.com/yoyoos/appmotor
 Description: YoyoOS Appmotor
 
+Package: calamares-settings-cutefish
+Version: 0.8.5
+Architecture: all
+Maintainer: Maksym Titenko <titenko.m@gmail.com>
+Installed-Size: 2513
+Depends: calamares-settings-ubuntu-common (>= 2.1.2.10-1)
+Conflicts: calamares-settings-cutefish
+Filename: ./pool/main/c/calamares-settings-cutefish_2.1.2.10-1_all.deb
+Size: 21566
+MD5sum: dc0651c0fc326285f26ad39ec499cc83
+SHA1: 15955221b267b02b07f09b10aedbf7a9c2ed29aa
+SHA256: e7b50700ee90efd30ff57bb51f8820a676a86794d6030480fee33c83a428b496
+Section: devel
+Priority: optional
+Homepage: https://cutefish-ubuntu.github.io/
+Description: CutefishOS Calamares Settings and Branding
+ This package contains the Calamares settings and branding for CutefishOS.
+ As part of the branding the installer slideshow is contained within.
+ The settings ensure a proper UbuntuDDE desktop is installed with the
+ LXQt desktop environment.
+
 Package: cutefish-calamares
 Version: 0.5
 Architecture: amd64
