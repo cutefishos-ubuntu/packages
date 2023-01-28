@@ -35,6 +35,23 @@ Description: CutefishOS Calamares Settings and Branding
  The settings ensure a proper UbuntuDDE desktop is installed with the
  LXQt desktop environment.
 
+Package: cutefish
+Version: 0.8.5
+Architecture: all
+Maintainer: CutefishOS <titenko.m@gmail.com>
+Installed-Size: 11
+Depends: cutefish-calculator, cutefish-core, cutefish-dock, cutefish-filemanager, cutefish-launcher, cutefish-statusbar, cutefish-kwin-plugins, cutefish-qt-plugins, cutefish-screenlocker, cutefish-wallpapers, cutefish-settings, cutefish-icons, cutefish-gtk-themes, cutefish-daemon, cutefish-updator, fishui, libcutefish, fonts-noto, fonts-noto-mono, desktop-file-utils
+Recommends: cutefish-screenshot, cutefish-videoplayer, cutefish-debinstaller, cutefish-terminal, pppoe, smbclient, wireless-tools, pulseaudio-module-bluetooth
+Filename: ./pool/main/c/cutefish_0.8.5_all.deb
+Size: 1406
+MD5sum: debc119ed265600728aed0a3786563b1
+SHA1: f1b96819e67677f96b82cf94550787f8574eb923
+SHA256: 247918477cfa1a9ab7d859f2347a8b86ce8c6436090a348480e6a1f79d60a8c7
+Section: metapackages
+Priority: extra
+Homepage: https://cutefish-ubuntu.github.io
+Description: CutefishOS Meta Packages.
+
 Package: cutefish-calamares
 Version: 0.5
 Architecture: amd64
