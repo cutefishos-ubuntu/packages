@@ -26,12 +26,12 @@ jobs:
           
       - name: Import secret key
         run: |
-          gpg --export-secret-keys "titenko.m@gmail.com" > my-private-key.asc
+          gpg --export-secret-keys "48E66A3508ECE7D9" > my-private-key.asc
           gpg --import my-private-key.asc
 
       - name: Export public key
         run: |
-          gpg --armor --export "titenko.m@gmail.com" > KEY.gpg
+          gpg --armor --export "48E66A3508ECE7D9" > KEY.gpg
 
       - name: Create Debian packages
         run: |
@@ -41,5 +41,5 @@ jobs:
 
       - name: Sign Release with GPG
         run: |
-          gpg --default-key "titenko.m@gmail.com" -abs -o - Release > Release.gpg
-          gpg --default-key "titenko.m@gmail.com" --clearsign -o - Release > InRelease
+          gpg --default-key "48E66A3508ECE7D9" -abs -o - Release > Release.gpg
+          gpg --default-key "48E66A3508ECE7D9" --clearsign -o - Release > InRelease
