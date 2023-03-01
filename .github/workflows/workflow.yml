@@ -26,7 +26,8 @@ jobs:
           
       - name: Import secret key
         run: |
-          gpg --batch --passphrase "GPG_PASSPHRASE" --import private_key.asc
+          gpg --batch --passphrase "GPG_PASSPHRASE" --export-secret-keys "titenko.m@gmail.com" > my-private-key.asc
+          gpg --batch --passphrase "GPG_PASSPHRASE" --import my-private-key.asc
           gpg --batch --passphrase "GPG_PASSPHRASE" --armor --export titenko.m@gmail.com > public_key.asc
 
       - name: Export public key
