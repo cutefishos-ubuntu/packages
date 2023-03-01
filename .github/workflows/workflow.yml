@@ -28,7 +28,7 @@ jobs:
         run: apt-ftparchive release . > Release
 
       - name: Create Release signature file
-        run: gpg --default-key "titenko.m@gmail.com" -abs -o - Release > Release.gpg
+        run: gpg --default-key "B7BCE7683AAE5AC246AC171C48E66A3508ECE7D9 -abs -o - Release > Release.gpg
 
       - name: Create InRelease file
-        run: gpg --default-key "titenko.m@gmail.com" --clearsign -o - Release > InRelease
+        run: gpg --default-key "B7BCE7683AAE5AC246AC171C48E66A3508ECE7D9" --clearsign -o - Release > InRelease
