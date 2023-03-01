@@ -20,8 +20,8 @@ jobs:
     - name: Setup GPG Key
       uses: crazy-max/ghaction-import-gpg@v2
       with:
-        key: ${{ secrets.GPG_PRIVATE_KEY }}
-        passphrase: ${{ secrets.GPG_PASSPHRASE }}
+        key: ${{ GPG_PRIVATE_KEY }}
+        passphrase: ${{ GPG_PASSPHRASE }}
 
     - name: Install Dependencies
       run: sudo apt-get update && sudo apt-get -y install dpkg-dev
