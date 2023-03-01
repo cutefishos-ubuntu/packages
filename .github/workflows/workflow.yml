@@ -1,34 +1,42 @@
-name: Build and sign Debian repository
+name: Build and Sign Debian Packages
 
 on:
   push:
   pull_request:
+ 
+  paths:
+    - '**'
+    
   workflow_dispatch:
-  
-  watch:
-    types: [started]
 
 jobs:
-  build-and-sign:
+  build-and-sign-deb:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install required packages
-        run: sudo apt-get update && sudo apt-get install gnupg dpkg-dev -y
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dpkg-dev gnupg2
 
-      - name: Create Packages file
-        run: dpkg-scanpackages --multiversion . > Packages
+      - name: Import secret key
+        run: |
+          gpg --export-secret-keys "titenko.m@gmail.com" > my-private-key.asc
+          gpg --import my-private-key.asc
 
-      - name: Compress Packages file
-        run: gzip -k -f Packages
+      - name: Export public key
+        run: |
+          gpg --armor --export "titenko.m@gmail.com" > KEY.gpg
 
-      - name: Create Release file
-        run: apt-ftparchive release . > Release
+      - name: Create Debian packages
+        run: |
+          dpkg-scanpackages --multiversion . > Packages
+          gzip -k -f Packages
+          apt-ftparchive release . > Release
 
-      - name: Create Release signature file
-        run: gpg --default-key "B7BCE7683AAE5AC246AC171C48E66A3508ECE7D9" -abs -o - Release > Release.gpg
-
-      - name: Create InRelease file
-        run: gpg --default-key "B7BCE7683AAE5AC246AC171C48E66A3508ECE7D9" --clearsign -o - Release > InRelease
+      - name: Sign Release with GPG
+        run: |
+          gpg --default-key "titenko.m@gmail.com" -abs -o - Release > Release.gpg
+          gpg --default-key "titenko.m@gmail.com" --clearsign -o - Release > InRelease
