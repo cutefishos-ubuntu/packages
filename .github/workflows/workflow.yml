@@ -1,0 +1,42 @@
+name: Build Packages and Release
+
+on:
+  push:
+    paths:
+      - '**/*'
+  pull_request:
+    paths:
+      - '**/*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup GPG Key
+      uses: crazy-max/ghaction-import-gpg@v2
+      with:
+        key: ${{ secrets.GPG_PRIVATE_KEY }}
+        passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+    - name: Install Dependencies
+      run: sudo apt-get update && sudo apt-get -y install dpkg-dev
+
+    - name: Build Packages and Release
+      run: |
+        dpkg-scanpackages --multiversion . > Packages
+        gzip -k -f Packages
+        apt-ftparchive release . > Release
+        gpg --default-key "titenko.m@gmail.com" -abs -o - Release > Release.gpg
+        gpg --default-key "titenko.m@gmail.com" --clearsign -o - Release > InRelease
+
+    - name: Commit Changes
+      uses: EndBug/add-and-commit@v7
+      with:
+        author_name: Your Name
+        author_email: your-email@example.com
+        message: 'Update Packages'
