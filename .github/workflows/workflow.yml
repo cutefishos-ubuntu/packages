@@ -19,7 +19,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y dpkg-dev gnupg2
-
+      
+      - name: Improt GPG
+        run: |
+          gpg --import KEY.gpg
+          
       - name: Import secret key
         run: |
           gpg --export-secret-keys "titenko.m@gmail.com" > my-private-key.asc
