@@ -3,7 +3,9 @@ name: Build and Sign Debian Packages
 on:
   push:
   pull_request:
- 
+  workflow_dispatch:
+  watch:
+    types: [started]
   paths:
     - '**'
     
