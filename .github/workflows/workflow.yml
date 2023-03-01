@@ -8,8 +8,6 @@ on:
     types: [started]
   paths:
     - '**'
-    
-  workflow_dispatch:
 
 jobs:
   build-and-sign-deb:
