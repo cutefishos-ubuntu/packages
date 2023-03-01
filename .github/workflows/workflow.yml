@@ -1,13 +1,12 @@
-name: Build and Sign Debian Packages
+name: Build and sign Debian repository
 
 on:
   push:
   pull_request:
   workflow_dispatch:
+
   watch:
     types: [started]
-  paths:
-    - '**'
 
 jobs:
   build-and-sign-deb:
