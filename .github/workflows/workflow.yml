@@ -1,42 +1,34 @@
-name: Build Packages and Release
+name: Build and sign Debian repository
 
 on:
   push:
-    paths:
-      - '**/*'
   pull_request:
-    paths:
-      - '**/*'
   workflow_dispatch:
+  
+  watch:
+    types: [started]
 
 jobs:
-  build:
+  build-and-sign:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Setup GPG Key
-      uses: crazy-max/ghaction-import-gpg@v2
-      with:
-        key: ${{ secrets.GPG_PRIVATE_KEY }}
-        passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Install required packages
+        run: sudo apt-get update && sudo apt-get install gnupg dpkg-dev -y
 
-    - name: Install Dependencies
-      run: sudo apt-get update && sudo apt-get -y install dpkg-dev
+      - name: Create Packages file
+        run: dpkg-scanpackages --multiversion . > Packages
 
-    - name: Build Packages and Release
-      run: |
-        dpkg-scanpackages --multiversion . > Packages
-        gzip -k -f Packages
-        apt-ftparchive release . > Release
-        gpg --default-key "titenko.m@gmail.com" -abs -o - Release > Release.gpg
-        gpg --default-key "titenko.m@gmail.com" --clearsign -o - Release > InRelease
+      - name: Compress Packages file
+        run: gzip -k -f Packages
 
-    - name: Commit Changes
-      uses: EndBug/add-and-commit@v7
-      with:
-        author_name: Your Name
-        author_email: your-email@example.com
-        message: 'Update Packages'
+      - name: Create Release file
+        run: apt-ftparchive release . > Release
+
+      - name: Create Release signature file
+        run: gpg --default-key "titenko.m@gmail.com" -abs -o - Release > Release.gpg
+
+      - name: Create InRelease file
+        run: gpg --default-key "titenko.m@gmail.com" --clearsign -o - Release > InRelease
